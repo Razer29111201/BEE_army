@@ -1,0 +1,102 @@
+# ===========================================
+# LMS PROJECT - GITIGNORE
+# ===========================================
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.settings/
+
+# Build outputs
+dist/
+build/
+out/
+*.min.js
+*.min.css
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Database
+*.sql.bak
+*.sqlite
+*.db
+
+# Uploads (if stored locally)
+uploads/
+public/uploads/
+
+# Coverage & Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Debug
+.debug/
+*.debug
+
+# Cache
+.cache/
+*.cache
+.npm/
+.eslintcache
+.parcel-cache/
+
+# Cloudinary (if any local cache)
+cloudinary_cache/
+
+# Secrets & Keys
+*.pem
+*.key
+*.crt
+secrets/
+credentials/
+
+# Documentation build
+docs/_build/
+
+# Misc
+*.gz
+*.zip
+*.tar
+*.rar

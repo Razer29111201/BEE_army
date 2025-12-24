@@ -1,11 +1,14 @@
-import BranchModel from '../models/BranchModel.js';
+import BranchModel from '../models/Branchmodel.js';
 
 // GET /api/branches
 export const getAll = async (req, res) => {
     try {
+        console.log('GET /branches called');
         const branches = await BranchModel.findAllActive();
+        console.log('Branches found:', branches);
         res.json({ success: true, data: branches });
     } catch (error) {
+        console.error('Branch error:', error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
