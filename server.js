@@ -10,7 +10,7 @@ const app = express();
 
 // CORS
 app.use(cors({
-  origin: ['http://localhost:5500', 'http://127.0.0.1:5500', 'http://localhost:3000', 'http://localhost:8080', 'http://192.168.1.228:3000'],
+  origin: ['https://lmsarmytech.netlify.app'],
   credentials: true
 }));
 
