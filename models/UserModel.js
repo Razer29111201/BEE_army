@@ -204,6 +204,21 @@ class UserModel extends BaseModel {
     return rows;
   }
 
+  // Gán branches cho user
+  async assignBranches(userId, branchIds) {
+    // Xóa branches cũ
+    await this.db.query('DELETE FROM user_branches WHERE user_id = ?', [userId]);
+
+    // Thêm branches mới
+    if (branchIds && branchIds.length > 0) {
+      const values = branchIds.map((branchId, index) => [userId, branchId, index === 0 ? 1 : 0]);
+      await this.db.query(
+        'INSERT INTO user_branches (user_id, branch_id, is_primary) VALUES ?',
+        [values]
+      );
+    }
+  }
+
   // Kiểm tra user có quyền truy cập branch không
   async canAccessBranch(userId, branchId, isSystemWide = false) {
     if (isSystemWide) return true;

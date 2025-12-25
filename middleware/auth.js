@@ -17,7 +17,21 @@ export const authenticate = async (req, res, next) => {
     }
 
     const permissions = await UserModel.getPermissions(user.role_id);
-    req.user = { id: user.id, username: user.username, full_name: user.full_name, role_id: user.role_id, role_name: user.role_name, permissions };
+
+    // Tìm primary branch
+    const primaryBranch = user.branches?.find(b => b.is_primary) || user.branches?.[0] || null;
+
+    req.user = {
+      id: user.id,
+      username: user.username,
+      full_name: user.full_name,
+      role_id: user.role_id,
+      role_name: user.role_name,
+      is_system_wide: user.is_system_wide,
+      branches: user.branches || [],
+      primaryBranch: primaryBranch,
+      permissions
+    };
     next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') return res.status(401).json({ success: false, message: 'Token hết hạn' });

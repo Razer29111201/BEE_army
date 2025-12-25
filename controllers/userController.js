@@ -33,7 +33,7 @@ export const getRoles = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
   try {
-    const { username, email, password, fullName, phone, roleId } = req.body;
+    const { username, email, password, fullName, phone, roleId, branch_ids } = req.body;
     if (!username || !password || !fullName || !roleId) {
       return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc' });
     }
@@ -41,6 +41,12 @@ export const create = async (req, res, next) => {
     const user = await UserModel.createUser({
       username, email, password, full_name: fullName, phone, role_id: roleId
     });
+
+    // Gán branches cho user
+    if (branch_ids && branch_ids.length > 0) {
+      await UserModel.assignBranches(user.id, branch_ids);
+    }
+
     delete user.password;
     res.status(201).json({ success: true, message: 'Tạo user thành công', data: user });
   } catch (error) { next(error); }
@@ -48,7 +54,7 @@ export const create = async (req, res, next) => {
 
 export const update = async (req, res, next) => {
   try {
-    const { fullName, email, phone, roleId, isActive } = req.body;
+    const { fullName, email, phone, roleId, isActive, branch_ids } = req.body;
     const data = {};
     if (fullName) data.full_name = fullName;
     if (email) data.email = email;
@@ -57,6 +63,12 @@ export const update = async (req, res, next) => {
     if (isActive !== undefined) data.is_active = isActive;
 
     await UserModel.update(req.params.id, data);
+
+    // Cập nhật branches nếu có
+    if (branch_ids !== undefined) {
+      await UserModel.assignBranches(req.params.id, branch_ids || []);
+    }
+
     res.json({ success: true, message: 'Cập nhật thành công' });
   } catch (error) { next(error); }
 };

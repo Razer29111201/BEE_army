@@ -10,7 +10,7 @@ const app = express();
 
 // CORS
 app.use(cors({
-  origin: ['https://lmsarmytech.netlify.app'],
+  origin: ['https://lmsarmytech.netlify.app', 'http://localhost:3000'],
   credentials: true
 }));
 
